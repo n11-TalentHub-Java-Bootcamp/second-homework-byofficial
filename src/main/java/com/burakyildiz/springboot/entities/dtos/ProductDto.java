@@ -1,8 +1,11 @@
 package com.burakyildiz.springboot.entities.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonFilter("ProductDtoFilter")
 public class ProductDto implements IDto{
     private Long id;
     private String name;

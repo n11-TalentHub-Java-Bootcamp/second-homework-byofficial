@@ -1,10 +1,11 @@
 package com.burakyildiz.springboot.entities.concretes;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="CATEGORY")
-public class Category implements IEntity {
+public class Category implements IEntity, Serializable {
     @SequenceGenerator(name = "generator", sequenceName = "KATEGORI_ID_SEQ")
     @Id
     @GeneratedValue(generator = "generator")

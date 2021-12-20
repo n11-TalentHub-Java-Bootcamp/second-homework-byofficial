@@ -1,12 +1,18 @@
 package com.burakyildiz.springboot.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name="PRODUCT")
-public class Product implements IEntity{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "category"})
+@JsonFilter("ProductFilter")
+public class Product implements IEntity, Serializable {
     @SequenceGenerator(name = "generator", sequenceName = "PRODUCT_ID_SEQ")
     @Id
     @GeneratedValue(generator = "generator")
