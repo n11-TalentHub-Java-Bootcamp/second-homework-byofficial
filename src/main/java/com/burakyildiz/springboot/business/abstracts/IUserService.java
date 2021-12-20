@@ -4,7 +4,7 @@ import com.burakyildiz.springboot.entities.concretes.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
     List<User> findAll();
 
     User findById(Long id);

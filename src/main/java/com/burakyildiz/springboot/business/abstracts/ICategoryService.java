@@ -4,7 +4,7 @@ import com.burakyildiz.springboot.entities.concretes.Category;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface ICategoryService {
 
     List<Category> findAll();
 

@@ -4,7 +4,7 @@ import com.burakyildiz.springboot.entities.concretes.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface IProductService {
     List<Product> findAll();
 
     Product findById(Long id);
