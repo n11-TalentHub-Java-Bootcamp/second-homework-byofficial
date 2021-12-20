@@ -105,7 +105,7 @@ public class ProductsController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id){
 
         productManager.deleteById(id);

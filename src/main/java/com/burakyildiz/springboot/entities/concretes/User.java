@@ -27,6 +27,10 @@ public class User implements IEntity{
     @Column(name = "PHONE", length= 15)
     private String phoneNumber;
 
+    //kullaniciAdi
+    @Column(name = "USER_NAME", length= 20)
+    private String userName;
+
     public Long getId() {
         return id;
     }
@@ -65,6 +69,14 @@ public class User implements IEntity{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
