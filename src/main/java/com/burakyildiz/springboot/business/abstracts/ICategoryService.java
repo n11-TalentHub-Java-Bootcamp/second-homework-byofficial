@@ -4,13 +4,12 @@ import com.burakyildiz.springboot.entities.concretes.Category;
 
 import java.util.List;
 
-public interface ICategoryService {
-
+public interface ICategoryService  {
     List<Category> findAll();
 
     Category findById(Long id);
 
-    Category save(Category category);
+    public Category save(Category category);
 
     void delete(Category category);
 
