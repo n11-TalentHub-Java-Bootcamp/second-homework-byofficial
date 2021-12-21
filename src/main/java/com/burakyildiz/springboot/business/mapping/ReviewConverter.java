@@ -1,6 +1,8 @@
 package com.burakyildiz.springboot.business.mapping;
 
+import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.concretes.ProductReview;
+import com.burakyildiz.springboot.entities.dtos.ProductDto;
 import com.burakyildiz.springboot.entities.dtos.ProductReviewDto;
 import com.burakyildiz.springboot.entities.dtos.ReviewDto;
 import com.burakyildiz.springboot.entities.dtos.UserReviewDto;
@@ -16,9 +18,11 @@ public interface ReviewConverter {
 
     ReviewConverter INSTANCE = Mappers.getMapper(ReviewConverter.class);
 
+
+
     @Mapping(source = "userId", target = "userId.id")
     @Mapping(source = "productId", target = "productId.id")
-    ProductReview converReviewDtoToProductReview(ReviewDto productReviewDto);
+    ProductReview convertReviewDtoToProductReview(ReviewDto productReviewDto);
 
     @Mapping(target = "userId", source = "userId.id")
     @Mapping(target = "productId", source = "productId.id")

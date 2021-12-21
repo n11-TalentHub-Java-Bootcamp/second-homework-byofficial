@@ -14,13 +14,13 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-12-21T13:38:37+0300",
+    date = "2021-12-21T14:33:14+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 public class ReviewConverterImpl implements ReviewConverter {
 
     @Override
-    public ProductReview converReviewDtoToProductReview(ReviewDto productReviewDto) {
+    public ProductReview convertReviewDtoToProductReview(ReviewDto productReviewDto) {
         if ( productReviewDto == null ) {
             return null;
         }
