@@ -2,7 +2,7 @@ package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.CategoryManager;
 import com.burakyildiz.springboot.business.concretes.ProductManager;
-import com.burakyildiz.springboot.business.exceptions.ProductNotFoundException;
+import com.burakyildiz.springboot.business.exceptions.products.ProductNotFoundException;
 import com.burakyildiz.springboot.business.mapping.ProductMapper;
 import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.dtos.ProductDetailDto;

@@ -1,4 +1,4 @@
-package com.burakyildiz.springboot.business.exceptions;
+package com.burakyildiz.springboot.business.exceptions.users;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

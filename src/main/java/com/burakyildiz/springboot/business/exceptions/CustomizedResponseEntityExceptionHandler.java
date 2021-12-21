@@ -1,5 +1,6 @@
 package com.burakyildiz.springboot.business.exceptions;
 
+import com.burakyildiz.springboot.business.exceptions.products.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
