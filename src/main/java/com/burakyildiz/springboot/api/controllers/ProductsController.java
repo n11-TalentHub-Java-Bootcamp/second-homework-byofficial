@@ -2,6 +2,7 @@ package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.CategoryManager;
 import com.burakyildiz.springboot.business.concretes.ProductManager;
+import com.burakyildiz.springboot.business.exceptions.ProductNotFoundException;
 import com.burakyildiz.springboot.business.mapping.ProductMapper;
 import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.dtos.ProductDetailDto;
@@ -50,7 +51,7 @@ public class ProductsController {
         Product product = productManager.findById(id);
 
         if (product == null){
-            //throw new UrunNotFoundException("Urun not found. id: " + id);
+            throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
         WebMvcLinkBuilder linkToProduct = WebMvcLinkBuilder.linkTo(
@@ -81,7 +82,7 @@ public class ProductsController {
         Product product = productManager.findById(id);
 
         if (product == null){
-            //throw new UrunNotFoundException("Urun not found. id: " + id);
+            throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
         ProductDetailDto productDetailDto = ProductMapper.INSTANCE.convertProductToProductDetailDto(product);
@@ -107,6 +108,11 @@ public class ProductsController {
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id){
+        Product product = productManager.findById(id);
+
+        if (product == null){
+            throw new ProductNotFoundException("Product not found. id: " + id);
+        }
 
         productManager.deleteById(id);
     }
