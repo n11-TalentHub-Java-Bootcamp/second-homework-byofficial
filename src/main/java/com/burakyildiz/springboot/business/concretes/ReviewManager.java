@@ -3,6 +3,7 @@ package com.burakyildiz.springboot.business.concretes;
 import com.burakyildiz.springboot.business.abstracts.IReviewService;
 import com.burakyildiz.springboot.dataAccess.abstracts.ReviewDao;
 import com.burakyildiz.springboot.entities.concretes.ProductReview;
+import com.burakyildiz.springboot.entities.dtos.ProductReviewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class ReviewManager implements IReviewService {
         Optional<ProductReview> optionalProductReview = reviewDao.findById(id);
 
         ProductReview productReview = null;
-        if (optionalProductReview.isPresent()){
+        if (optionalProductReview.isPresent()) {
             productReview = optionalProductReview.get();
         }
 
@@ -49,5 +50,13 @@ public class ReviewManager implements IReviewService {
     @Override
     public long count() {
         return reviewDao.count();
+    }
+
+    public List<ProductReview> findAllUserReviewList(Long userId) {
+        return reviewDao.findAllUserReviewList(userId);
+    }
+
+    public List<ProductReview> findAllProductReviewList(Long productId){
+        return reviewDao.findAllProductReviewList(productId);
     }
 }

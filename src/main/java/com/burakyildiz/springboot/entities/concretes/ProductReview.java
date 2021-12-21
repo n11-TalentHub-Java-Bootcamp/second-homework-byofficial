@@ -1,11 +1,12 @@
 package com.burakyildiz.springboot.entities.concretes;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="PRODUCT_REVIEW")
-public class ProductReview implements IEntity {
+public class ProductReview implements IEntity, Serializable {
     @SequenceGenerator(name = "generator", sequenceName = "PRODUCT_REVIEW_ID_SEQ")
     @Id
     @GeneratedValue(generator = "generator")

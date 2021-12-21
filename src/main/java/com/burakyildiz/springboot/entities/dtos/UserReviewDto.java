@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserReviewDto implements IDto{
     //kullanıcıId
-    private Long userId;
+
 
     //kullanıcı adı
     private String userFirstName;
@@ -21,21 +21,14 @@ public class UserReviewDto implements IDto{
     public UserReviewDto() {
     }
 
-    public UserReviewDto(Long userId, String userFirstName, String productName, String review, Date reviewDate) {
-        this.userId = userId;
+    public UserReviewDto(String userFirstName, String productName, String review, Date reviewDate) {
         this.userFirstName = userFirstName;
         this.productName = productName;
         this.review = review;
         this.reviewDate = reviewDate;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getUserFirstName() {
         return userFirstName;
@@ -69,14 +62,5 @@ public class UserReviewDto implements IDto{
         this.reviewDate = reviewDate;
     }
 
-    @Override
-    public String toString() {
-        return "UserReviewDto{" +
-                "userId=" + userId +
-                ", userFirstName='" + userFirstName + '\'' +
-                ", productName='" + productName + '\'' +
-                ", review='" + review + '\'' +
-                ", reviewDate=" + reviewDate +
-                '}';
-    }
+
 }
