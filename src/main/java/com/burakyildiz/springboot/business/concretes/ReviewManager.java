@@ -52,10 +52,12 @@ public class ReviewManager implements IReviewService {
         return reviewDao.count();
     }
 
+    //Bir kullanıcının ürünlere yaptığı tüm yorumlar
     public List<ProductReview> findAllUserReviewList(Long userId) {
         return reviewDao.findAllUserReviewList(userId);
     }
 
+    //Bir ürüne yapılan tüm yorumlar
     public List<ProductReview> findAllProductReviewList(Long productId){
         return reviewDao.findAllProductReviewList(productId);
     }

@@ -52,18 +52,22 @@ public class UserManager implements IUserService {
     }
 
 
+    //Kullanıcı adı ve telefon bilgilerini kullanarak kullanıcıyı bulmak
     public User findByUserNameAndPhoneNumber(String name, String phone) {
         return userDao.findByUserNameAndPhoneNumber(name, phone);
     }
 
+    //Kullanıcı adı veya telefon bilgilerini kullanarak kullanıcıyı bulmak
     public User findByUserNameOrPhoneNumber(String name, String phone) {
         return userDao.findByUserNameOrPhoneNumber(name, phone);
     }
 
+    //Kullanıcı adı bilgisini kullanarak kullanıcıyı bulmak
     public User findByUserName(String name) {
         return userDao.findByUserName(name);
     }
 
+    //Telefon bilgisini kullanarak kullanıcıyı bulmak
     public User findByPhoneNumber(String phone) {
         return userDao.findByPhoneNumber(phone);
     }
