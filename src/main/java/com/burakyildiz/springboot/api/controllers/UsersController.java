@@ -1,7 +1,7 @@
 package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.UserManager;
-import com.burakyildiz.springboot.business.mapping.UserConverter;
+import com.burakyildiz.springboot.business.mapping.UserMapper;
 import com.burakyildiz.springboot.entities.concretes.User;
 import com.burakyildiz.springboot.entities.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UsersController {
 
         List<User> userList = userManager.findAll();
 
-        List<UserDto> userDtoList = UserConverter.INSTANCE.convertAllUserListToUserDtoList(userList);
+        List<UserDto> userDtoList = UserMapper.INSTANCE.convertAllUserListToUserDtoList(userList);
 
         return userDtoList;
     }
@@ -59,7 +59,7 @@ public class UsersController {
     @PostMapping("")
     public ResponseEntity<Object> saveUser(@RequestBody UserDto userDto) {
 
-        User user = UserConverter.INSTANCE.convertUserDtoToUser(userDto);
+        User user = UserMapper.INSTANCE.convertUserDtoToUser(userDto);
 
         user = userManager.save(user);
 
@@ -103,11 +103,11 @@ public class UsersController {
     @PutMapping("")
     public UserDto updateUser(@RequestBody UserDto userDto) {
 
-        User user = UserConverter.INSTANCE.convertUserDtoToUser(userDto);
+        User user = UserMapper.INSTANCE.convertUserDtoToUser(userDto);
 
         user = userManager.save(user);
 
-        UserDto userDtoResult = UserConverter.INSTANCE.convertUserToUserDto(user);
+        UserDto userDtoResult = UserMapper.INSTANCE.convertUserToUserDto(user);
 
         return userDtoResult;
     }

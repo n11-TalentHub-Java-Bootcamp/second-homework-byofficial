@@ -11,7 +11,7 @@ import javax.annotation.processing.Generated;
     date = "2021-12-21T10:24:30+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
-public class UserConverterImpl implements UserConverter {
+public class UserMapperImpl implements UserMapper {
 
     @Override
     public List<UserDto> convertAllUserListToUserDtoList(List<User> userList) {

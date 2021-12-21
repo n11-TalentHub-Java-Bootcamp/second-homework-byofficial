@@ -1,8 +1,6 @@
 package com.burakyildiz.springboot.business.mapping;
 
-import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.concretes.ProductReview;
-import com.burakyildiz.springboot.entities.dtos.ProductDto;
 import com.burakyildiz.springboot.entities.dtos.ProductReviewDto;
 import com.burakyildiz.springboot.entities.dtos.ReviewDto;
 import com.burakyildiz.springboot.entities.dtos.UserReviewDto;
@@ -14,9 +12,9 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ReviewConverter {
+public interface ReviewMapper {
 
-    ReviewConverter INSTANCE = Mappers.getMapper(ReviewConverter.class);
+    ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
 
 
 

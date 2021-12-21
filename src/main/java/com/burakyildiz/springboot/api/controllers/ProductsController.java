@@ -2,7 +2,7 @@ package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.CategoryManager;
 import com.burakyildiz.springboot.business.concretes.ProductManager;
-import com.burakyildiz.springboot.business.mapping.ProductConverter;
+import com.burakyildiz.springboot.business.mapping.ProductMapper;
 import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.dtos.ProductDetailDto;
 import com.burakyildiz.springboot.entities.dtos.ProductDto;
@@ -58,7 +58,7 @@ public class ProductsController {
                         .findAllProductList()
         );
 
-        ProductDto productDto = ProductConverter.INSTANCE.convertProductToProductDto(product);
+        ProductDto productDto = ProductMapper.INSTANCE.convertProductToProductDto(product);
 
         String filterName = "ProductDtoFilter";
 
@@ -84,7 +84,7 @@ public class ProductsController {
             //throw new UrunNotFoundException("Urun not found. id: " + id);
         }
 
-        ProductDetailDto productDetailDto = ProductConverter.INSTANCE.convertProductToProductDetailDto(product);
+        ProductDetailDto productDetailDto = ProductMapper.INSTANCE.convertProductToProductDetailDto(product);
 
         return productDetailDto;
     }
@@ -92,7 +92,7 @@ public class ProductsController {
     @PostMapping("")
     public ResponseEntity<Object> saveProduct(@RequestBody ProductDto productDto){
 
-        Product product = ProductConverter.INSTANCE.convertProductDtoToProduct(productDto);
+        Product product = ProductMapper.INSTANCE.convertProductDtoToProduct(productDto);
 
         product = productManager.save(product);
 
@@ -116,7 +116,7 @@ public class ProductsController {
 
         List<Product> productList = productManager.findAllByCategoryOrderByIdDesc(categoryId);
 
-        List<ProductDetailDto> productDetailDtoList = ProductConverter.INSTANCE.convertAllProductListToProductDetailDtoList(productList);
+        List<ProductDetailDto> productDetailDtoList = ProductMapper.INSTANCE.convertAllProductListToProductDetailDtoList(productList);
 
         return productDetailDtoList;
     }

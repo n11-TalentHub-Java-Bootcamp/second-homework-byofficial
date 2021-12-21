@@ -2,8 +2,8 @@ package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.CategoryManager;
 import com.burakyildiz.springboot.business.concretes.ProductManager;
-import com.burakyildiz.springboot.business.mapping.CategoryConverter;
-import com.burakyildiz.springboot.business.mapping.ProductConverter;
+import com.burakyildiz.springboot.business.mapping.CategoryMapper;
+import com.burakyildiz.springboot.business.mapping.ProductMapper;
 import com.burakyildiz.springboot.entities.concretes.Category;
 import com.burakyildiz.springboot.entities.concretes.Product;
 import com.burakyildiz.springboot.entities.dtos.CategoryDto;
@@ -29,7 +29,7 @@ public class CategoriesController {
     public List<CategoryDto> findAll() {
         List<Category> categoryList = categoryManager.findAll();
 
-        List<CategoryDto> categoryDtoList = CategoryConverter.INSTANCE.convertAllCategoryListToCategoryDtoList(categoryList);
+        List<CategoryDto> categoryDtoList = CategoryMapper.INSTANCE.convertAllCategoryListToCategoryDtoList(categoryList);
 
         return categoryDtoList;
     }
@@ -45,7 +45,7 @@ public class CategoriesController {
     @PostMapping("")
     public ResponseEntity<Object> save(@RequestBody CategoryDto categoryDto) {
 
-        Category category = CategoryConverter.INSTANCE.convertCategoryDtoToCategory(categoryDto);
+        Category category = CategoryMapper.INSTANCE.convertCategoryDtoToCategory(categoryDto);
 
 
         if (category.getTopCategory() != null && category.getTopCategory().getId() == null) {
@@ -66,7 +66,7 @@ public class CategoriesController {
     @PutMapping("")
     public CategoryDto update(@RequestBody CategoryDto categoryDto) {
 
-        Category category = CategoryConverter.INSTANCE.convertCategoryDtoToCategory(categoryDto);
+        Category category = CategoryMapper.INSTANCE.convertCategoryDtoToCategory(categoryDto);
 
 
         if (category.getTopCategory() != null && category.getTopCategory().getId() == null) {
@@ -75,7 +75,7 @@ public class CategoriesController {
 
         category = categoryManager.save(category);
 
-        CategoryDto categoryDtoResult = CategoryConverter.INSTANCE.convertCategoryToCategoryDto(category);
+        CategoryDto categoryDtoResult = CategoryMapper.INSTANCE.convertCategoryToCategoryDto(category);
 
         return categoryDtoResult;
     }
@@ -90,7 +90,7 @@ public class CategoriesController {
     public List<ProductDetailDto> findAllProductByCategoryId(@PathVariable Long id) {
         List<Product> urunList = productManager.findAllByCategoryOrderByIdDesc(id);
 
-        List<ProductDetailDto> productDetailDtoList = ProductConverter.INSTANCE.convertAllProductListToProductDetailDtoList(urunList);
+        List<ProductDetailDto> productDetailDtoList = ProductMapper.INSTANCE.convertAllProductListToProductDetailDtoList(urunList);
 
         return productDetailDtoList;
     }

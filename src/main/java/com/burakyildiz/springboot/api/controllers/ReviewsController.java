@@ -1,7 +1,7 @@
 package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.ReviewManager;
-import com.burakyildiz.springboot.business.mapping.ReviewConverter;
+import com.burakyildiz.springboot.business.mapping.ReviewMapper;
 import com.burakyildiz.springboot.entities.concretes.ProductReview;
 import com.burakyildiz.springboot.entities.dtos.ProductReviewDto;
 import com.burakyildiz.springboot.entities.dtos.ReviewDto;
@@ -24,7 +24,7 @@ public class ReviewsController {
     public List<ReviewDto> findAll() {
         List<ProductReview> productReviewList = reviewManager.findAll();
 
-        List<ReviewDto> reviewDtoList = ReviewConverter.INSTANCE.convertAllReviewListToReviewDtoList(productReviewList);
+        List<ReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllReviewListToReviewDtoList(productReviewList);
 
         return reviewDtoList;
     }
@@ -35,7 +35,7 @@ public class ReviewsController {
 
         List<ProductReview> productReviewList = reviewManager.findAllUserReviewList(id);
 
-        List<UserReviewDto> reviewDtoList = ReviewConverter.INSTANCE.convertAllProductReviewListToUserReviewDtoList(productReviewList);
+        List<UserReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllProductReviewListToUserReviewDtoList(productReviewList);
 
         return reviewDtoList;
     }
@@ -44,7 +44,7 @@ public class ReviewsController {
     public List<ProductReviewDto> findAllProductReviewsList(@PathVariable Long id) {
         List<ProductReview> productReviewList = reviewManager.findAllProductReviewList(id);
 
-        List<ProductReviewDto> reviewDtoList = ReviewConverter.INSTANCE.convertAllProductReviewListToProductReviewDtoList(productReviewList);
+        List<ProductReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllProductReviewListToProductReviewDtoList(productReviewList);
 
         return reviewDtoList;
     }
@@ -52,7 +52,7 @@ public class ReviewsController {
     @PostMapping("")
     public ResponseEntity<Object> saveReview(@RequestBody ReviewDto reviewDto) {
 
-        ProductReview review = ReviewConverter.INSTANCE.convertReviewDtoToProductReview(reviewDto);
+        ProductReview review = ReviewMapper.INSTANCE.convertReviewDtoToProductReview(reviewDto);
 
         review = reviewManager.save(review);
 

@@ -17,7 +17,7 @@ import javax.annotation.processing.Generated;
     date = "2021-12-21T14:33:14+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
-public class ReviewConverterImpl implements ReviewConverter {
+public class ReviewMapperImpl implements ReviewMapper {
 
     @Override
     public ProductReview convertReviewDtoToProductReview(ReviewDto productReviewDto) {

@@ -11,9 +11,9 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ProductConverter {
+public interface ProductMapper {
 
-    ProductConverter INSTANCE = Mappers.getMapper(ProductConverter.class);
+    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
     @Mapping(source = "categoryId", target = "category.id")
     Product convertProductDtoToProduct(ProductDto productDto);
