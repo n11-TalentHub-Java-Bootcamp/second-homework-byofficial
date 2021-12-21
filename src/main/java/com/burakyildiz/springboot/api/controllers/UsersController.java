@@ -1,6 +1,7 @@
 package com.burakyildiz.springboot.api.controllers;
 
 import com.burakyildiz.springboot.business.concretes.UserManager;
+import com.burakyildiz.springboot.business.exceptions.users.UserNotFoundException;
 import com.burakyildiz.springboot.business.mapping.UserMapper;
 import com.burakyildiz.springboot.entities.concretes.User;
 import com.burakyildiz.springboot.entities.dtos.UserDto;
@@ -19,6 +20,7 @@ public class UsersController {
     @Autowired
     private UserManager userManager;
 
+    //[GET] https://localhost:8080/api/users/
     @GetMapping("")
     public List<UserDto> findAll() {
 
@@ -29,6 +31,7 @@ public class UsersController {
         return userDtoList;
     }
 
+    //[GET] https://localhost:8080/api/users/{id}
     @GetMapping("/{id}")
     public User findById(@PathVariable Long id) {
 
@@ -37,25 +40,31 @@ public class UsersController {
         return user;
     }
 
-    // Query = q
+    //[GET] https://localhost:8080/api/users/q?name={param1}&phone={param2}
     @GetMapping("/q")
     public User findByNameOrPhone(@RequestParam(value = "name", required = false) String name,
                                   @RequestParam(value = "phone", required = false) String phone) {
         User getUser = null;
 
-        if (name != null && phone == null) {
+
+        if (name != null && phone == null) {  //Sadece kullanıcı adı parametresi varsa
             getUser = userManager.findByUserName(name);
 
-        } else if (phone != null && name == null) {
+        } else if (phone != null && name == null) { //Sadece telefon parametresi varsa
             getUser = userManager.findByPhoneNumber(phone);
 
-        } else if (name != null && phone != null) {
+        } else if (name != null && phone != null) { //Kullanıcı ve telefon parametrelerinin ikisi birden varsa
             getUser = userManager.findByUserNameAndPhoneNumber(name, phone);
         }
 
+        //Girilen parametreler sonucunda kullanıcı sistemde yoksa
+        if (getUser == null) {
+            throw new UserNotFoundException("User not found!");
+        }
         return getUser;
     }
 
+    //[POST] https://localhost:8080/api/users/
     @PostMapping("")
     public ResponseEntity<Object> saveUser(@RequestBody UserDto userDto) {
 
@@ -72,6 +81,7 @@ public class UsersController {
         return ResponseEntity.created(uri).build();
     }
 
+    //[DELETE] https://localhost:8080/api/users/name={param1}&phone={param2}
     @DeleteMapping("")
     public ResponseEntity<String> deleteByUser(@RequestParam String name,
                                                @RequestParam String phone) {
@@ -100,6 +110,7 @@ public class UsersController {
 
     }
 
+    //[PUT] https://localhost:8080/api/users/
     @PutMapping("")
     public UserDto updateUser(@RequestBody UserDto userDto) {
 

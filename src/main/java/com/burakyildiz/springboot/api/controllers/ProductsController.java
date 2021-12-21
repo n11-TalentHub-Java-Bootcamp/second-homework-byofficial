@@ -29,10 +29,16 @@ public class ProductsController {
     @Autowired
     private CategoryManager categoryManager;
 
+    //[GET] https://localhost:8080/api/products/
     @GetMapping("")
     public MappingJacksonValue findAllProductList() {
 
         List<Product> productList = productManager.findAll();
+
+        //Sistemde hiç ürün yoksa
+        if (productList.size() == 0) {
+            throw new ProductNotFoundException("There are no product!");
+        }
 
         String filterName = "ProductFilter";
 
@@ -45,12 +51,14 @@ public class ProductsController {
         return mapping;
     }
 
+    //[GET] https://localhost:8080/api/products/{id}
     @GetMapping("/{id}")
-    public MappingJacksonValue findProductById(@PathVariable Long id){
+    public MappingJacksonValue findProductById(@PathVariable Long id) {
 
         Product product = productManager.findById(id);
 
-        if (product == null){
+        //Belirtilen id ait ürün sistemde yoksa
+        if (product == null) {
             throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
@@ -76,12 +84,14 @@ public class ProductsController {
         return mapping;
     }
 
+    //[GET] https://localhost:8080/api/products/detail/{id}
     @GetMapping("/detail/{id}")
-    public ProductDetailDto findProductDtoById(@PathVariable Long id){
+    public ProductDetailDto findProductDtoById(@PathVariable Long id) {
 
         Product product = productManager.findById(id);
 
-        if (product == null){
+        //Belirtilen id ait ürün sistemde yoksa
+        if (product == null) {
             throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
@@ -90,8 +100,20 @@ public class ProductsController {
         return productDetailDto;
     }
 
+    //[GET] https://localhost:8080/api/products/categories/{categoryId}
+    @GetMapping("/categories/{categoryId}")
+    public List<ProductDetailDto> findAllProductByCategoryId(@PathVariable Long categoryId) {
+
+        List<Product> productList = productManager.findAllByCategoryOrderByIdDesc(categoryId);
+
+        List<ProductDetailDto> productDetailDtoList = ProductMapper.INSTANCE.convertAllProductListToProductDetailDtoList(productList);
+
+        return productDetailDtoList;
+    }
+
+    //[POST] https://localhost:8080/api/products/
     @PostMapping("")
-    public ResponseEntity<Object> saveProduct(@RequestBody ProductDto productDto){
+    public ResponseEntity<Object> saveProduct(@RequestBody ProductDto productDto) {
 
         Product product = ProductMapper.INSTANCE.convertProductDtoToProduct(productDto);
 
@@ -106,27 +128,17 @@ public class ProductsController {
         return ResponseEntity.created(uri).build();
     }
 
+    //[DELETE] https://localhost:8080/api/products/{id}
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id){
+    public void deleteProduct(@PathVariable Long id) {
         Product product = productManager.findById(id);
 
-        if (product == null){
+        if (product == null) {
             throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
         productManager.deleteById(id);
     }
-
-    @GetMapping("/categories/{categoryId}")
-    public List<ProductDetailDto> findAllProductByCategoryId(@PathVariable Long categoryId){
-
-        List<Product> productList = productManager.findAllByCategoryOrderByIdDesc(categoryId);
-
-        List<ProductDetailDto> productDetailDtoList = ProductMapper.INSTANCE.convertAllProductListToProductDetailDtoList(productList);
-
-        return productDetailDtoList;
-    }
-
 
 
     private SimpleFilterProvider getProductFilterProvider(String filterName) {

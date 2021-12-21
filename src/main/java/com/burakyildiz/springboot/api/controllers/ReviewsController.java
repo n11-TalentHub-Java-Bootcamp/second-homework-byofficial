@@ -33,16 +33,22 @@ public class ReviewsController {
     @Autowired
     private ProductManager productManager;
 
+    //[GET] https://localhost:8080/api/reviews/
     @GetMapping("")
     public List<ReviewDto> findAll() {
         List<ProductReview> productReviewList = reviewManager.findAll();
+
+        //Sistemde hiç yorum yoksa
+        if (productReviewList.size() == 0) {
+            throw new ReviewNotFoundException("There are no review!");
+        }
 
         List<ReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllReviewListToReviewDtoList(productReviewList);
 
         return reviewDtoList;
     }
 
-
+    //[GET] https://localhost:8080/api/reviews/user/{id}
     @GetMapping("/user/{id}")
     public List<UserReviewDto> findAllUserReviewsList(@PathVariable Long id) {
 
@@ -51,7 +57,9 @@ public class ReviewsController {
 
         List<UserReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllProductReviewListToUserReviewDtoList(productReviewList);
 
+        //Belirtilen kullanıcı varsa
         if (user != null) {
+            //Kullanıcı yorum yapmadıysa
             if (reviewDtoList.size() == 0) {
                 throw new ReviewNotFoundException(user.getFirstName() + " " + user.getLastName() +
                         " Kullanıcı henüz bir yorum yazmamıştır");
@@ -63,6 +71,7 @@ public class ReviewsController {
         return reviewDtoList;
     }
 
+    //[GET] https://localhost:8080/api/reviews/product/{id}
     @GetMapping("/product/{id}")
     public List<ProductReviewDto> findAllProductReviewsList(@PathVariable Long id) {
         Product product = productManager.findById(id);
@@ -70,7 +79,9 @@ public class ReviewsController {
 
         List<ProductReviewDto> reviewDtoList = ReviewMapper.INSTANCE.convertAllProductReviewListToProductReviewDtoList(productReviewList);
 
+        //Belirtilen ürün varsa
         if (product != null) {
+            //Ürüne yorum yapılmadıysa
             if (reviewDtoList.size() == 0) {
                 throw new ReviewNotFoundException(product.getProductName() +
                         " adlı ürüne henüz bir yorum yazmamıştır");
@@ -79,10 +90,10 @@ public class ReviewsController {
             throw new ProductNotFoundException("Product not found. id: " + id);
         }
 
-
         return reviewDtoList;
     }
 
+    //[POST] https://localhost:8080/api/reviews/
     @PostMapping("")
     public ResponseEntity<Object> saveReview(@RequestBody ReviewDto reviewDto) {
 
@@ -99,8 +110,16 @@ public class ReviewsController {
         return ResponseEntity.created(uri).build();
     }
 
+    //[DELETE] https://localhost:8080/api/reviews/{id}
     @DeleteMapping("/{id}")
     public void deleteReview(@PathVariable Long id) {
+        ProductReview review = reviewManager.findById(id);
+
+        //Belirtilen id ait yorum sistemde yoksa
+        if (review == null) {
+            throw new ReviewNotFoundException("Review not found. id: " + id);
+        }
+
         reviewManager.deleteById(id);
     }
 
