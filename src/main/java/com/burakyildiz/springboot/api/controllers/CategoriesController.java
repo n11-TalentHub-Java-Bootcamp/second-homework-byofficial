@@ -87,7 +87,7 @@ public class CategoriesController {
 
 
     @GetMapping("/{id}/products")
-    public List<ProductDetailDto> findAllUrunByKategoriId(@PathVariable Long id) {
+    public List<ProductDetailDto> findAllProductByCategoryId(@PathVariable Long id) {
         List<Product> urunList = productManager.findAllByCategoryOrderByIdDesc(id);
 
         List<ProductDetailDto> productDetailDtoList = ProductConverter.INSTANCE.convertAllProductListToProductDetailDtoList(urunList);

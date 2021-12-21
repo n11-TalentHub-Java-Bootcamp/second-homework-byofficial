@@ -50,4 +50,27 @@ public class UserManager implements IUserService {
     public long count() {
         return userDao.count();
     }
+
+
+    public User findByUserNameAndPhoneNumber(String name, String phone) {
+        return userDao.findByUserNameAndPhoneNumber(name, phone);
+    }
+
+    public User findByUserNameOrPhoneNumber(String name, String phone) {
+        return userDao.findByUserNameOrPhoneNumber(name, phone);
+    }
+
+    public User findByUserName(String name) {
+        return userDao.findByUserName(name);
+    }
+
+    public User findByPhoneNumber(String phone) {
+        return userDao.findByPhoneNumber(phone);
+    }
+
+
+    public void deleteByUser(String name, String phone) {
+        userDao.deletedByUser(name, phone);
+    }
+
 }
